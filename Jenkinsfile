@@ -17,4 +17,16 @@ pipeline {
             }
         }
     }
+    stage('Copy Index HTML') {
+            steps {
+                script {
+                    // Define the source and destination paths for the index.html file
+                    def sourcePath = '/var/www/html/main/index.html'
+                    def destinationPath = '/var/www/html/index.html'
+                    
+                    // Copy the index.html file
+                    sh "cp ${sourcePath} ${destinationPath}"
+                }
+            }
+    }
 }
