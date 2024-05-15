@@ -1,32 +1,23 @@
 pipeline {
     agent any
-    
     stages {
-        stage('Clone Repository') {
+        stage('Checkout from Git') {
             steps {
                 script {
-                    // Replace 'https://github.com/username/repository.git' with your repository URL
-                    def repositoryUrl = 'https://github.com/shripadrithe/demo.git'
-                    
-                    // Define the directory where you want to clone the repository
-                    def directory = '/var/wwww/html'
-                    
-                    // Clone the repository
-                    git branch: 'master', url: repositoryUrl, destination: directory
+                    // Checkout code from Git repository
+                    git branch: 'main', url: 'https://github.com/shripadrithe/demo.git'
+                }
+ }
+ }
+    stage('Copy Index HTML') {
+          steps {
+                script {
+                    // Remove existing files in the destination folder
+                    sh 'rm -rf /var/www/html/*'
+                    // Copy files from Jenkins workspace to destination folder
+                    sh 'cp -r "/var/lib/jenkins/workspace/dev env"/* /var/www/html/'
                 }
             }
         }
-    }
-    stage('Copy Index HTML') {
-            steps {
-                script {
-                    // Define the source and destination paths for the index.html file
-                    def sourcePath = '/var/www/html/main/index.html'
-                    def destinationPath = '/var/www/html/index.html'
-                    
-                    // Copy the index.html file
-                    sh "cp ${sourcePath} ${destinationPath}"
-                }
-            }
     }
 }
