@@ -15,7 +15,7 @@ pipeline {
                     // Remove existing files in the destination folder
                     sh 'rm -rf /var/www/html/*'
                     // Copy files from Jenkins workspace to destination folder
-                    sh 'cp -r "/var/lib/jenkins/workspace/dev env"/* /var/www/html/'
+                    sh 'cp -r "/var/lib/jenkins/workspace/main env"/* /var/www/html/'
                 }
             }
         }
